@@ -1,0 +1,56 @@
+@startuml
+class App {
+  - code: String
+  + submitCode(): void
+}
+
+class PythonBackend {
+  + handleRequest(code: String): void
+}
+
+class CodeMirror {
+  - value: String
+  + setValue(value: String): void
+}
+
+class Axios {
+  + post(url: String, data: Object): Promise
+}
+
+class Express {
+  + post(route: String, callback: Function): void
+  + listen(port: Number, callback: Function): void
+}
+
+class PythonShell {
+  + run(script: String, options: Object, callback: Function): void
+}
+
+class FileSystem {
+  + writeFileSync(file: String, data: String): void
+}
+
+class Cors {}
+
+class Python {
+  // интерфейс для работы с Python кодом
+}
+
+App --> CodeMirror: controls
+App --> Axios: реквесты
+App --> PythonBackend: реквесты
+CodeMirror --> App: оповещает
+Axios --> App: ответы
+PythonBackend --> PythonShell: запускает
+PythonBackend --> FileSystem: записывает
+PythonBackend --> Axios: отвечает
+PythonBackend --> Cors: передает
+PythonBackend --> Python: работает
+PythonShell --> Python: запускает
+Python --> PythonShell: запускает
+Python --> PythonBackend: работает
+FileSystem --> PythonBackend: записывает
+Cors --> PythonBackend: передает
+Express --> PythonBackend: передает
+
+@enduml
