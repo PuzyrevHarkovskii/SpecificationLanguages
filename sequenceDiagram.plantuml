@@ -1,0 +1,24 @@
+@startuml
+participant App
+participant CodeMirror
+participant Axios
+participant PythonBackend
+participant PythonShell
+participant FileSystem
+participant Cors
+participant Python
+
+App -> CodeMirror: Изменение кода
+CodeMirror -> App: Уведомление об изменении
+App -> PythonBackend: Отправка кода на выполнение
+PythonBackend -> FileSystem: Запись кода в файл
+PythonBackend -> PythonShell: Выполнение кода
+PythonShell -> Python: Выполнение кода
+Python -> PythonShell: Выполнение кода
+PythonShell --> PythonBackend: Результат выполнения
+PythonBackend --> App: Отправка результата
+App --> Axios: Отправка результата на сервер
+Axios --> PythonBackend: Получение результата
+PythonBackend --> Cors: Обработка запроса
+Cors --> PythonBackend: Обработка запроса
+@enduml
